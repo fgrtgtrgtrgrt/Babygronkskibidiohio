@@ -1,4 +1,3 @@
-// c.js
 let appInd;
 const g = window.location.pathname === "/a";
 const a = window.location.pathname === "/b";
@@ -51,7 +50,7 @@ function handleClick(app) {
     saveToLocal(Selected);
     window.location.href = Selected;
   } else if (app.blank) {
-    blank(Selected);
+    blank(Selected); // calls our new blank() below
   } else if (app.now) {
     now(Selected);
     if (t) {
@@ -425,4 +424,16 @@ function bar() {
       game.style.display = "none";
     }
   }
+}
+
+/* --- Added blank() function to stop redirects --- */
+function blank(url) {
+  // instead of redirecting, show the site in an iframe
+  const frame = document.createElement("iframe");
+  frame.src = url;
+  frame.style.width = "100%";
+  frame.style.height = "100vh";
+  frame.style.border = "none";
+  document.body.innerHTML = ""; // clear everything else
+  document.body.appendChild(frame);
 }
